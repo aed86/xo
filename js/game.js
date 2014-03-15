@@ -114,17 +114,15 @@
                     }
                 });
 
-//                var possibleCombination = $.merge(compSteps, emptyBoxes);
-
 //                console.log("COMPSTEPS:", compSteps);
 //                console.log("USERSTEPS:", userSteps);
 
-                var minCompLength = 3;
-                var possibleCombination = getPossibleCombinations();
-                var bestCombination = [];
-                console.log("POSSIBLE: ",possibleCombination);
+                var minCompLength = 3,
+                    possibleCompCombination = getPossibleCombinations(userSteps),
+                    bestCombination = [];
+                console.log("POSSIBLE: ",possibleCompCombination);
                 // Ищем ближайшую комбирацию для выигрыша
-                $.each(possibleCombination, function(i, comb) {
+                $.each(possibleCompCombination, function(i, comb) {
                     var diff = helpers.arrayDiff(comb, compSteps);
                     console.log("DIFF:", diff, diff.length);
                     console.log("COMB:", comb);
@@ -156,10 +154,10 @@
                 helpers.markBox($boxToMark, 1);
                 compSteps.push(elm);
 
-                function getPossibleCombinations() {
+                function getPossibleCombinations(steps) {
                     var pc = [];
                     $.each(winCombinations, function(i, c) {
-                        var diff = helpers.arrayDiff(c, userSteps);
+                        var diff = helpers.arrayDiff(c, steps);
                         if (diff.length == 3) {
                             pc.push(c);
                         }
